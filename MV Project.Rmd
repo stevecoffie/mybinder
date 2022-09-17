@@ -1,0 +1,90 @@
+---
+title: "Multivariate Statistics"
+author: "Stephen Kofi Acheampong"
+date: "28/2/2022"
+output: pdf_document
+header-includes:
+  - \usepackage{color, dsfont, bbold}
+urlcolor: blue
+---
+
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.pos='h',fig.width=8,fig.height=3} 
+library(MASS)
+library(tidyverse)
+library(caret)
+library(ggcorrplot)
+library(GGally)
+library(ggplot2)
+
+# importing data
+wbc <-  read.csv("C:/Users/steve/OneDrive/Desktop/MTU/Spring 22/Multivariate/Project/wdbc.data", header=FALSE)
+head(wbc, 3)
+# adding column names
+column.names <- c('id_number', 'diagnosis', 'radius_mean', 
+         'texture_mean', 'perimeter_mean', 'area_mean', 
+         'smoothness_mean', 'compactness_mean', 
+         'concavity_mean','concave_points_mean', 
+         'symmetry_mean', 'fractal_dimension_mean',
+         'radius_se', 'texture_se', 'perimeter_se', 
+         'area_se', 'smoothness_se', 'compactness_se', 
+         'concavity_se', 'concave_points_se', 
+         'symmetry_se', 'fractal_dimension_se', 
+         'radius_worst', 'texture_worst', 
+         'perimeter_worst', 'area_worst', 
+         'smoothness_worst', 'compactness_worst', 
+         'concavity_worst', 'concave_points_worst', 
+         'symmetry_worst', 'fractal_dimension_worst')
+
+colnames(wbc) <- column.names
+# removing id col
+wbc$id_number <- NULL
+head(wbc, 2)
+# dimension
+dim(wbc)
+# variable type
+str(wbc)
+
+```
+
+**Exploratory Data Analysis**
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.pos='h',fig.width=8,fig.height=3}
+# count of diagnosis
+ggplot(data = wbc, aes(x = diagnosis, fill = diagnosis)) + 
+  geom_bar() + 
+  scale_fill_discrete(name = "Dose", labels = c("Benign", "Malignant"))+
+  ggtitle("Count of Diagnosis")
+
+ggplot(wbc, aes(x=diagnosis, y=perimeter_se, fill=diagnosis)) +
+  geom_boxplot()
+
+```
+
+**Histogram Plots**
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.pos='h',fig.width=8,fig.height=3}
+# Histogram with density plot
+ggplot(df, aes(x=weight)) + 
+ geom_histogram(aes(y=..density..), colour="black", fill="white")+
+ geom_density(alpha=.2, fill="#FF6666")
+
+```
+
+**Box Plots**
+```{r, echo=TRUE, warning=FALSE, message=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.pos='h',fig.width=8,fig.height=3}
+# box plot
+ggplot(wbc, aes(x=diagnosis, y=perimeter_se, fill=diagnosis)) +
+  geom_boxplot()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
